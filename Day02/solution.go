@@ -1,6 +1,7 @@
 package main
 
 import (
+	"AdventOfCode2021/helpers"
 	"bufio"
 	"fmt"
 	"log"
@@ -8,12 +9,6 @@ import (
 	"strconv"
 	"strings"
 )
-
-func stringToInt(s string) int {
-	i, e := strconv.Atoi(s)
-	if e != nil { log.Fatal(e) }
-	return i
-}
 
 func printResults(h_pos, depth int) {
 	fmt.Println("Horizontal Position: " + strconv.Itoa(h_pos))
@@ -33,7 +28,7 @@ func part1(filename string) {
 	h_pos, depth := 0, 0
 	for scanner.Scan() {
 		cmd_prts := strings.Fields(scanner.Text())
-		x := stringToInt(cmd_prts[1])
+		x := helpers.StringToInt(cmd_prts[1])
 
 		if cmd_prts[0] == "forward" { h_pos += x }
 		if cmd_prts[0] == "down" { depth += x }
@@ -57,7 +52,7 @@ func part2(filename string) {
 	h_pos, depth, aim := 0, 0, 0
 	for scanner.Scan() {
 		cmd_prts := strings.Fields(scanner.Text())
-		x := stringToInt(cmd_prts[1])
+		x := helpers.StringToInt(cmd_prts[1])
 
 		if cmd_prts[0] == "forward" {
 			h_pos += x

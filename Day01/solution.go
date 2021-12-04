@@ -1,27 +1,13 @@
 package main
 
-import "bufio"
-import "fmt"
-import "log"
-import "os"
-import "strconv"
-
-func stringToInt(s string) int {
-	i, e := strconv.Atoi(s)
-	if e != nil { log.Fatal(e) }
-	return i
-}
-
-func copyArray(arr []int) []int {
-	arr_copy := make([]int, len(arr))
-	copy(arr_copy, arr)
-	return arr_copy
-}
-
-func leftShiftArray(arr []int, val int) []int {
-	arr = append(arr[1:], []int{val}...)
-	return arr
-}
+import (
+	"AdventOfCode2021/helpers"
+	"bufio"
+	"fmt"
+	"log"
+	"os"
+	"strconv"
+)
 
 func part1(filename string) {
 	fmt.Println("====== PART ONE ======")
@@ -34,7 +20,7 @@ func part1(filename string) {
 
 	inc_c, last := 0, 9223372036854775807
 	for scanner.Scan() {
-		x := stringToInt(scanner.Text())
+		x := helpers.StringToInt(scanner.Text())
 
 		if x > last { inc_c++ }
 		last = x
@@ -56,10 +42,10 @@ func part2(filename string) {
 
 	startCounter, win_inc_c, win := 0, 0, make([]int, 3)
 	for scanner.Scan() {
-		x := stringToInt(scanner.Text())
+		x := helpers.StringToInt(scanner.Text())
 
-		last_win := copyArray(win)
-		win = leftShiftArray(win, x)
+		last_win := helpers.CopyArray(win)
+		win = helpers.LeftShiftArray(win, x)
 
 		if startCounter >= 3 {
 			win_diff := 0
