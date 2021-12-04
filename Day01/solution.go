@@ -6,10 +6,10 @@ import "log"
 import "os"
 import "strconv"
 
-func part1() {
+func part1(filename string) {
 	fmt.Println("====== PART ONE ======")
 
-	f, e := os.Open("depth_readings.txt")
+	f, e := os.Open(filename)
 	if e != nil { log.Fatal(e) }
 	defer f.Close()
 
@@ -30,10 +30,10 @@ func part1() {
 	if e := scanner.Err(); e != nil { log.Fatal(e) }
 }
 
-func part2() {
+func part2(filename string) {
 	fmt.Println("====== PART TWO ======")
 
-	f, e := os.Open("depth_readings.txt")
+	f, e := os.Open("puzzle_input.txt")
 	if e != nil { log.Fatal(e) }
 	defer f.Close()
 
@@ -66,6 +66,7 @@ func part2() {
 }
 
 func main() {
-	part1()
-	part2()
+	filename := "puzzle_input.txt"
+	part1(filename)
+	part2(filename)
 }
