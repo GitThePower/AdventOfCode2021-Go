@@ -9,6 +9,18 @@ import (
 	"strings"
 )
 
+func stringToInt(s string) int {
+	i, e := strconv.Atoi(s)
+	if e != nil { log.Fatal(e) }
+	return i
+}
+
+func printResults(h_pos, depth int) {
+	fmt.Println("Horizontal Position: " + strconv.Itoa(h_pos))
+	fmt.Println("Depth: " + strconv.Itoa(depth))
+	fmt.Println("Product: " + strconv.Itoa(h_pos * depth))
+}
+
 func part1(filename string) {
 	fmt.Println("====== PART ONE ======")
 
@@ -18,21 +30,17 @@ func part1(filename string) {
 
 	scanner := bufio.NewScanner(f)
 
-	h_pos := 0
-	depth := 0
+	h_pos, depth := 0, 0
 	for scanner.Scan() {
 		cmd_prts := strings.Fields(scanner.Text())
-		i, e := strconv.Atoi(cmd_prts[1])
-		if e != nil { log.Fatal(e) }
+		x := stringToInt(cmd_prts[1])
 
-		if cmd_prts[0] == "forward" { h_pos += i }
-		if cmd_prts[0] == "down" { depth += i }
-		if cmd_prts[0] == "up" { depth -= i }
+		if cmd_prts[0] == "forward" { h_pos += x }
+		if cmd_prts[0] == "down" { depth += x }
+		if cmd_prts[0] == "up" { depth -= x }
 	}
 
-	fmt.Println("Horizontal Position: " + strconv.Itoa(h_pos))
-	fmt.Println("Depth: " + strconv.Itoa(depth))
-	fmt.Println("Product: " + strconv.Itoa(h_pos * depth))
+	printResults(h_pos, depth)
 
 	if e := scanner.Err(); e != nil { log.Fatal(e) }
 }
@@ -46,25 +54,20 @@ func part2(filename string) {
 
 	scanner := bufio.NewScanner(f)
 
-	h_pos := 0
-	depth := 0
-	aim := 0
+	h_pos, depth, aim := 0, 0, 0
 	for scanner.Scan() {
 		cmd_prts := strings.Fields(scanner.Text())
-		i, e := strconv.Atoi(cmd_prts[1])
-		if e != nil { log.Fatal(e) }
+		x := stringToInt(cmd_prts[1])
 
 		if cmd_prts[0] == "forward" {
-			h_pos += i
-			depth += aim * i
+			h_pos += x
+			depth += aim * x
 		}
-		if cmd_prts[0] == "down" { aim += i }
-		if cmd_prts[0] == "up" { aim -= i }
+		if cmd_prts[0] == "down" { aim += x }
+		if cmd_prts[0] == "up" { aim -= x }
 	}
 
-	fmt.Println("Horizontal Position: " + strconv.Itoa(h_pos))
-	fmt.Println("Depth: " + strconv.Itoa(depth))
-	fmt.Println("Product: " + strconv.Itoa(h_pos * depth))
+	printResults(h_pos, depth)
 
 	if e := scanner.Err(); e != nil { log.Fatal(e) }
 }

@@ -6,6 +6,23 @@ import "log"
 import "os"
 import "strconv"
 
+func stringToInt(s string) int {
+	i, e := strconv.Atoi(s)
+	if e != nil { log.Fatal(e) }
+	return i
+}
+
+func copyArray(arr []int) []int {
+	arr_copy := make([]int, len(arr))
+	copy(arr_copy, arr)
+	return arr_copy
+}
+
+func leftShiftArray(arr []int, val int) []int {
+	arr = append(arr[1:], []int{val}...)
+	return arr
+}
+
 func part1(filename string) {
 	fmt.Println("====== PART ONE ======")
 
@@ -15,14 +32,12 @@ func part1(filename string) {
 
 	scanner := bufio.NewScanner(f)
 
-	inc_c := 0
-	last := 9223372036854775807
+	inc_c, last := 0, 9223372036854775807
 	for scanner.Scan() {
-		i, e := strconv.Atoi(scanner.Text())
-		if e != nil { log.Fatal(e) }
+		x := stringToInt(scanner.Text())
 
-		if i > last { inc_c++ }
-		last = i
+		if x > last { inc_c++ }
+		last = x
 	}
 
 	fmt.Println("Incs: " + strconv.Itoa(inc_c))
@@ -39,16 +54,12 @@ func part2(filename string) {
 
 	scanner := bufio.NewScanner(f)
 
-	win_inc_c := 0
-	win := make([]int, 3)
-	startCounter := 0
+	startCounter, win_inc_c, win := 0, 0, make([]int, 3)
 	for scanner.Scan() {
-		i, e := strconv.Atoi(scanner.Text())
-		if e != nil { log.Fatal(e) }
+		x := stringToInt(scanner.Text())
 
-		last_win := make([]int, 3)
-		copy(last_win, win)
-		win = append(win[1:], []int{i}...)
+		last_win := copyArray(win)
+		win = leftShiftArray(win, x)
 
 		if startCounter >= 3 {
 			win_diff := 0
