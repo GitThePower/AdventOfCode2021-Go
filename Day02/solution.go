@@ -6,14 +6,13 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 	"strings"
 )
 
 func printResults(h_pos, depth int) {
-	fmt.Println("Horizontal Position: " + strconv.Itoa(h_pos))
-	fmt.Println("Depth: " + strconv.Itoa(depth))
-	fmt.Println("Product: " + strconv.Itoa(h_pos * depth))
+	fmt.Println("Horizontal Position: " + helpers.IntToString(h_pos))
+	fmt.Println("Depth: " + helpers.IntToString(depth))
+	fmt.Println("Product: " + helpers.IntToString(h_pos * depth))
 }
 
 func part1(filename string) {

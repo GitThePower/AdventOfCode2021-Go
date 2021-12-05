@@ -6,7 +6,6 @@ import (
 	"fmt"
 	"log"
 	"os"
-	"strconv"
 )
 
 func part1(filename string) {
@@ -26,7 +25,7 @@ func part1(filename string) {
 		last = x
 	}
 
-	fmt.Println("Incs: " + strconv.Itoa(inc_c))
+	fmt.Println("Incs: " + helpers.IntToString(inc_c))
 
 	if e := scanner.Err(); e != nil { log.Fatal(e) }
 }
@@ -44,8 +43,8 @@ func part2(filename string) {
 	for scanner.Scan() {
 		x := helpers.StringToInt(scanner.Text())
 
-		last_win := helpers.CopyArray(win)
-		win = helpers.LeftShiftArray(win, x)
+		last_win := helpers.CopyIntArray(win)
+		win = helpers.LeftShiftIntArray(win, x)
 
 		if startCounter >= 3 {
 			win_diff := 0
@@ -57,7 +56,7 @@ func part2(filename string) {
 		startCounter++
 	}
 
-	fmt.Println("Win Incs: " + strconv.Itoa(win_inc_c))
+	fmt.Println("Win Incs: " + helpers.IntToString(win_inc_c))
 
 	if e := scanner.Err(); e != nil { log.Fatal(e) }
 }
