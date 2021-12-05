@@ -2,6 +2,7 @@ package helpers
 
 import (
 	"log"
+	"math"
 	"strconv"
 )
 
@@ -49,4 +50,10 @@ func CopyStringArray(arr []string) []string {
 func LeftShiftIntArray(arr []int, val int) []int {
 	arr = append(arr[1:], []int{val}...)
 	return arr
+}
+
+// Math Operations
+func Power(base, exp int) int {
+	n := float64(exp)
+	return int(math.Pow(2, n))
 }

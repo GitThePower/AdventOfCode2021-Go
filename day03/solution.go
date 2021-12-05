@@ -5,7 +5,6 @@ import (
 	"bufio"
 	"fmt"
 	"log"
-	"math"
 	"os"
 )
 
@@ -20,9 +19,9 @@ func getBitCounts(counts [][]int, num string) [][]int {
 func getGammaAndEpsilon(counts [][]int) (int, int) {
 	gamma, epsilon := 0, 0
 	for j := 0; j < len(counts); j++ {
-		pow_of_two := float64(len(counts) - 1 - j)
-		if counts[j][0] > counts[j][1] { epsilon += int(math.Pow(2, pow_of_two)) }
-		if counts[j][0] < counts[j][1] { gamma += int(math.Pow(2, pow_of_two)) }
+		pow_of_two := helpers.Power(2, len(counts) - 1 - j)
+		if counts[j][0] > counts[j][1] { epsilon += pow_of_two }
+		if counts[j][0] < counts[j][1] { gamma += pow_of_two }
 		if counts[j][0] == counts[j][1] { log.Fatal("Counts of bit were equal") }
 	}
 	return gamma, epsilon
@@ -67,70 +66,35 @@ func getJthBitCount(counts []int, num string, j int) []int {
 	return counts
 }
 
-func getO2Rating(num_arr []string, counts []int) int {
-	O2_rating := 0
-	O2_ratings := helpers.CopyStringArray(num_arr)
-	for j := 0; j < len(O2_ratings[0]); j++ {
-		match := byte(49)
-		if counts[0] > counts[1] { match = byte(48) }
+func getRating(num_arr []string, counts []int, match bool) int {
+	rating := 0
+	ratings := helpers.CopyStringArray(num_arr)
+	for j := 0; j < len(ratings[0]); j++ {
+		mode := byte(49)
+		if counts[0] > counts[1] { mode = byte(48) }
 
 		next_counts := make([]int, 2)
-		next_O2_ratings := make([]string, 0)
-		for _, s := range O2_ratings {
-			if s[j] == match {
+		next_ratings := make([]string, 0)
+		for _, s := range ratings {
+			if (match && s[j] == mode) || (!match && s[j] != mode) {
 				next_counts = getJthBitCount(next_counts, s, j+1)
-				next_O2_ratings = helpers.AppendToStringArray(next_O2_ratings, s)
+				next_ratings = helpers.AppendToStringArray(next_ratings, s)
 			}
 		}
 
-		if len(next_O2_ratings) == 1 {
-			binary_string := next_O2_ratings[0]
+		if len(next_ratings) == 1 {
+			binary_string := next_ratings[0]
 			for k := 0; k < len(binary_string); k++ {
-				pow_of_two := float64(len(binary_string) - 1 - k)
-				if binary_string[k] == 49 { O2_rating += int(math.Pow(2, pow_of_two)) }
+				if binary_string[k] == 49 { rating += helpers.Power(2, len(binary_string) - 1 - k) }
 			}
-			return O2_rating
+			return rating
 		}
 		counts = next_counts
-		O2_ratings = next_O2_ratings
+		ratings = next_ratings
 	}
 		
-	log.Fatal("O2 Generator Rating never converged")
-	return O2_rating - 1
-}
-
-func getCO2Rating(num_arr []string, counts []int) int {
-	CO2_rating := 0
-	CO2_ratings := helpers.CopyStringArray(num_arr)
-	for j := 0; j < len(CO2_ratings[0]); j++ {
-		match := byte(49)
-		if counts[0] > counts[1] { match = byte(48) }
-
-		next_counts := make([]int, 2)
-		next_CO2_ratings := make([]string, 0)
-		for _, s := range CO2_ratings {
-			if s[j] != match {
-				next_counts = getJthBitCount(next_counts, s, j+1)
-				next_CO2_ratings = helpers.AppendToStringArray(next_CO2_ratings, s)
-			}
-		}
-
-		if len(next_CO2_ratings) == 1 {
-			binary_string := next_CO2_ratings[0]
-			for k := 0; k < len(binary_string); k++ {
-				pow_of_two := float64(len(binary_string) - 1 - k)
-				if binary_string[k] == 49 { CO2_rating += int(math.Pow(2, pow_of_two)) }
-			}
-			fmt.Println(binary_string)
-			return CO2_rating
-		}
-		fmt.Println(next_counts)
-		counts = next_counts
-		CO2_ratings = next_CO2_ratings
-	}
-		
-	log.Fatal("CO2 Scrubber Rating never converged")
-	return CO2_rating - 1
+	log.Fatal("Rating never converged")
+	return rating - 1
 }
 
 func printResultsP2(O2_rating, CO2_rating int) {
@@ -156,8 +120,8 @@ func part2(filename string) {
 		counts = getJthBitCount(counts, num, 0)
 	}
 
-	O2_rating := getO2Rating(num_arr, helpers.CopyIntArray(counts))
-	CO2_rating := getCO2Rating(num_arr, helpers.CopyIntArray(counts))
+	O2_rating := getRating(num_arr, helpers.CopyIntArray(counts), true)
+	CO2_rating := getRating(num_arr, helpers.CopyIntArray(counts), false)
 	printResultsP2(O2_rating, CO2_rating)
 
 	if e := scanner.Err(); e != nil { log.Fatal(e) }
