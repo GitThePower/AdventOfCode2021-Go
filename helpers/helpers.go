@@ -21,17 +21,13 @@ func StringToInt(s string) int {
 }
 
 // Array Operations
-func AppendToStringArray(arr []string, val string) []string {
-	arr = append(arr, []string{val}...)
+func AppendToIntArray(arr []int, val int) []int {
+	arr = append(arr, []int{val}...)
 	return arr
 }
 
-func ExtendTwoDIntArray(arr [][]int, x, y int) [][]int {
-	prev_len := len(arr)
-	arr = append(arr, make([][]int, x)...)
-	for j := prev_len; j < len(arr); j++ {
-		arr[j] = make([]int, y)
-	}
+func AppendToStringArray(arr []string, val string) []string {
+	arr = append(arr, []string{val}...)
 	return arr
 }
 
@@ -45,6 +41,15 @@ func CopyStringArray(arr []string) []string {
 	arr_copy := make([]string, len(arr))
 	copy(arr_copy, arr)
 	return arr_copy
+}
+
+func ExtendTwoDIntArray(arr [][]int, x, y int) [][]int {
+	prev_len := len(arr)
+	arr = append(arr, make([][]int, x)...)
+	for j := prev_len; j < len(arr); j++ {
+		arr[j] = make([]int, y)
+	}
+	return arr
 }
 
 func LeftShiftIntArray(arr []int, val int) []int {
