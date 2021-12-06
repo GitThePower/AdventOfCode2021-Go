@@ -1,12 +1,18 @@
 package helpers
 
 import (
+	"fmt"
 	"log"
 	"math"
 	"strconv"
+	"strings"
 )
 
 // Type Conversion Operations
+func IntArrayToString(arr []int, delim string) string {
+	return strings.Trim(strings.Replace(fmt.Sprint(arr), " ", delim, -1), "[]")
+}
+
 func IntToString(i int) string {
 	s := strconv.Itoa(i)
 	return s
