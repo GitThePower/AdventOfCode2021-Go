@@ -1,7 +1,6 @@
 package main
 
 import (
-	// "AdventOfCode2021/helpers"
 	"AdventOfCode2021/helpers"
 	"bufio"
 	"fmt"
@@ -20,7 +19,7 @@ func isBingo(pos int, board []int, selected map[int]bool) bool {
 		idx := ((pos + w) % 5) + row_start
 		val := board[idx]
 		if _, in := selected[val]; !in {
-			bingo = false 
+			bingo = false
 		} else {
 			winning_streak[w] = val
 		}
@@ -35,7 +34,7 @@ func isBingo(pos int, board []int, selected map[int]bool) bool {
 		idx := (pos + (h * 5)) % 25
 		val := board[idx]
 		if _, in := selected[val]; !in {
-			bingo = false 
+			bingo = false
 		} else {
 			winning_streak[h] = val
 		}
@@ -47,14 +46,16 @@ func isBingo(pos int, board []int, selected map[int]bool) bool {
 func getResults(board []int, selected map[int]bool, selection_order []int) {
 	unselected_total := 0
 	for _, v := range board {
-		if _, in := selected[v]; !in { unselected_total += v }
+		if _, in := selected[v]; !in {
+			unselected_total += v
+		}
 	}
-	last_called_num := selection_order[len(selection_order) - 1]
+	last_called_num := selection_order[len(selection_order)-1]
 	// fmt.Println("Board: " + helpers.IntArrayToString(board, " "))
 	// fmt.Println("Selected In Order: " + helpers.IntArrayToString(selection_order, " "))
 	fmt.Println("Sum Of Unselected: " + helpers.IntToString(unselected_total))
 	fmt.Println("Last Called Number: " + helpers.IntToString(last_called_num))
-	fmt.Println("Product: " + helpers.IntToString(unselected_total * last_called_num))
+	fmt.Println("Product: " + helpers.IntToString(unselected_total*last_called_num))
 }
 
 func part1(order []int, chosen map[int][]location, boards [][]int) {
@@ -77,7 +78,9 @@ func part1(order []int, chosen map[int][]location, boards [][]int) {
 				break
 			}
 		}
-		if bingo { break }
+		if bingo {
+			break
+		}
 	}
 
 	getResults(winning_board, selected, selection_order)
@@ -107,7 +110,9 @@ func part2(order []int, chosen map[int][]location, boards [][]int) {
 				break
 			}
 		}
-		if bingo_count == len(boards) { break }
+		if bingo_count == len(boards) {
+			break
+		}
 	}
 
 	getResults(losing_board, selected, selection_order)
@@ -136,12 +141,12 @@ func parseInput(scanner bufio.Scanner) ([]int, map[int][]location, [][]int) {
 		if len(vals) == 5 {
 			for i, v := range vals {
 				val := helpers.StringToInt(v)
-				boards[board_idx][i + val_inc] = val
+				boards[board_idx][i+val_inc] = val
 				chosen[val] = append(chosen[val], []location{{x: board_idx, y: i + val_inc}}...)
 			}
 			val_inc += len(vals)
 		} else {
-			boards = helpers.ExtendTwoDIntArray(boards, 1, 25)
+			boards = helpers.Extend2DIntArray(boards, 1, 25)
 			board_idx++
 			val_inc = 0
 		}
@@ -152,7 +157,9 @@ func parseInput(scanner bufio.Scanner) ([]int, map[int][]location, [][]int) {
 
 func main() {
 	f, e := os.Open("puzzle_input.txt")
-	if e != nil { log.Fatal(e) }
+	if e != nil {
+		log.Fatal(e)
+	}
 	defer f.Close()
 
 	scanner := bufio.NewScanner(f)
@@ -160,5 +167,7 @@ func main() {
 	part1(order, chosen, boards)
 	part2(order, chosen, boards)
 
-	if e := scanner.Err(); e != nil { log.Fatal(e) }
+	if e := scanner.Err(); e != nil {
+		log.Fatal(e)
+	}
 }

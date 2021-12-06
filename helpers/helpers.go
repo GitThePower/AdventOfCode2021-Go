@@ -49,7 +49,7 @@ func CopyStringArray(arr []string) []string {
 	return arr_copy
 }
 
-func ExtendTwoDIntArray(arr [][]int, x, y int) [][]int {
+func Extend2DIntArray(arr [][]int, x, y int) [][]int {
 	prev_len := len(arr)
 	arr = append(arr, make([][]int, x)...)
 	for j := prev_len; j < len(arr); j++ {
