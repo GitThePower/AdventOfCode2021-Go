@@ -18,6 +18,10 @@ func IntToString(i int) string {
 	return s
 }
 
+func StringArrayToString(arr []string, delim string) string {
+	return strings.Trim(strings.Replace(fmt.Sprint(arr), " ", delim, -1), "[]")
+}
+
 func StringToInt(s string) int {
 	i, e := strconv.Atoi(s)
 	if e != nil {
