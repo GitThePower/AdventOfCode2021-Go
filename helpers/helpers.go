@@ -68,6 +68,11 @@ func LeftShiftIntArray(arr []int, val int) []int {
 }
 
 // Math Operations
+func Abs(num int) int {
+	n := float64(num)
+	return int(math.Abs(n))
+}
+
 func Power(base, exp int) int {
 	n := float64(exp)
 	return int(math.Pow(2, n))
