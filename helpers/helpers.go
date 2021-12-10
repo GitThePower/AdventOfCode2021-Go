@@ -41,6 +41,12 @@ func AppendToStringArray(arr []string, val string) []string {
 	return arr
 }
 
+func AppendTo2DStringArray(arr [][]string, val []string) [][]string {
+	arr = append(arr, make([][]string, 1)...)
+	arr[len(arr) - 1] = val
+	return arr
+}
+
 func CopyIntArray(arr []int) []int {
 	arr_copy := make([]int, len(arr))
 	copy(arr_copy, arr)
@@ -75,5 +81,6 @@ func Abs(num int) int {
 
 func Power(base, exp int) int {
 	n := float64(exp)
-	return int(math.Pow(2, n))
+	x := float64(base)
+	return int(math.Pow(x, n))
 }
