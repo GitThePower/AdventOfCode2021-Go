@@ -54,7 +54,7 @@ func signalSimilarity(a, b string) int {
 }
 
 func translateSignals(signals []string) map[int]string {
-	translation := make(map[int]string, 10)
+	translation := make(map[int]string)
 	unknown := make([]string, 0)
 	for _, signal := range signals {
 		if (len(signal) == 2) { translation[1] = signal }

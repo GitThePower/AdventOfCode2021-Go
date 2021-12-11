@@ -73,6 +73,12 @@ func LeftShiftIntArray(arr []int, val int) []int {
 	return arr
 }
 
+func PopIntArray(arr []int) ([]int, int) {
+	pop := arr[0]
+	arr = append(arr[1:], []int{}...)
+	return arr, pop
+}
+
 // Math Operations
 func Abs(num int) int {
 	n := float64(num)
@@ -83,4 +89,11 @@ func Power(base, exp int) int {
 	n := float64(exp)
 	x := float64(base)
 	return int(math.Pow(x, n))
+}
+
+// Map Operations
+
+func InIntBoolMap(m map[int]bool, i int) bool {
+	if _, in := m[i]; in { return true }
+	return false
 }

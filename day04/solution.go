@@ -18,7 +18,7 @@ func isBingo(pos int, board []int, selected map[int]bool) bool {
 	for w := 1; w < 5; w++ {
 		idx := ((pos + w) % 5) + row_start
 		val := board[idx]
-		if _, in := selected[val]; !in {
+		if !helpers.InIntBoolMap(selected, val) {
 			bingo = false
 		} else {
 			winning_streak[w] = val
@@ -33,7 +33,7 @@ func isBingo(pos int, board []int, selected map[int]bool) bool {
 	for h := 1; h < 5; h++ {
 		idx := (pos + (h * 5)) % 25
 		val := board[idx]
-		if _, in := selected[val]; !in {
+		if !helpers.InIntBoolMap(selected, val) {
 			bingo = false
 		} else {
 			winning_streak[h] = val
@@ -46,7 +46,7 @@ func isBingo(pos int, board []int, selected map[int]bool) bool {
 func getResults(board []int, selected map[int]bool, selection_order []int) {
 	unselected_total := 0
 	for _, v := range board {
-		if _, in := selected[v]; !in {
+		if !helpers.InIntBoolMap(selected, v) {
 			unselected_total += v
 		}
 	}
@@ -101,7 +101,7 @@ func part2(order []int, chosen map[int][]location, boards [][]int) {
 		for _, loc := range selection {
 			c_board := boards[loc.x]
 			pos := loc.y
-			if _, in := bingo_boards[loc.x]; !in && isBingo(pos, c_board, selected) {
+			if !helpers.InIntBoolMap(bingo_boards, loc.x) && isBingo(pos, c_board, selected) {
 				bingo_boards[loc.x] = true
 				bingo_count++
 			}
