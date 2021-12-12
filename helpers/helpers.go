@@ -9,8 +9,17 @@ import (
 )
 
 // Type Conversion Operations
-func IntArrayToString(arr []int, delim string) string {
-	return strings.Trim(strings.Replace(fmt.Sprint(arr), " ", delim, -1), "[]")
+func IntArrayToString(arr []int, delim string, width int) string {
+	s := strings.Trim(strings.Replace(fmt.Sprint(arr), " ", delim, -1), "[]")
+	f_s := string(s[0])
+	for i := 1; i < len(s); i++ {
+		if (i % (width * (len(delim) + 1)) == 0) {
+			f_s = f_s + "\n" + string(s[i])
+		} else {
+			f_s = f_s + string(s[i])
+		}
+	}
+	return f_s
 }
 
 func IntToString(i int) string {

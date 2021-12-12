@@ -25,7 +25,7 @@ func isBingo(pos int, board []int, selected map[int]bool) bool {
 		}
 	}
 	if bingo {
-		// fmt.Println("Winning Streak: " + helpers.IntArrayToString(winning_streak, " "))
+		// fmt.Println("Winning Streak: " + helpers.IntArrayToString(winning_streak, " ", 5))
 		return bingo
 	}
 
@@ -39,7 +39,7 @@ func isBingo(pos int, board []int, selected map[int]bool) bool {
 			winning_streak[h] = val
 		}
 	}
-	// if bingo { fmt.Println("Winning Streak: " + helpers.IntArrayToString(winning_streak, " ")) }
+	// if bingo { fmt.Println("Winning Streak: " + helpers.IntArrayToString(winning_streak, " ", 5)) }
 	return bingo
 }
 
@@ -51,8 +51,8 @@ func getResults(board []int, selected map[int]bool, selection_order []int) {
 		}
 	}
 	last_called_num := selection_order[len(selection_order)-1]
-	// fmt.Println("Board: " + helpers.IntArrayToString(board, " "))
-	// fmt.Println("Selected In Order: " + helpers.IntArrayToString(selection_order, " "))
+	// fmt.Println("Board: " + helpers.IntArrayToString(board, " ", 5))
+	// fmt.Println("Selected In Order: " + helpers.IntArrayToString(selection_order, " ", 5))
 	fmt.Println("Sum Of Unselected: " + helpers.IntToString(unselected_total))
 	fmt.Println("Last Called Number: " + helpers.IntToString(last_called_num))
 	fmt.Println("Product: " + helpers.IntToString(unselected_total*last_called_num))
