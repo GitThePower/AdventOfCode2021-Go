@@ -64,7 +64,7 @@ func getBasinEdge(vents []int, width, height, idx int) int {
 		if len(queue) < 1 {
 			break;
 		}
-		queue,pop = helpers.PopIntArray(queue)
+		queue,pop = helpers.DequeueIntArray(queue)
 		basin_edges++
 		if ((pop >= width && vents[pop - width] < 9) && !helpers.InIntBoolMap(marked_vents, pop - width)) {
 			marked_vents[pop - width] = true

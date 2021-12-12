@@ -59,6 +59,12 @@ func CopyStringArray(arr []string) []string {
 	return arr_copy
 }
 
+func DequeueIntArray(arr []int) ([]int, int) {
+	pop := arr[0]
+	arr = arr[1:]
+	return arr, pop
+}
+
 func Extend2DIntArray(arr [][]int, x, y int) [][]int {
 	prev_len := len(arr)
 	arr = append(arr, make([][]int, x)...)
@@ -73,9 +79,9 @@ func LeftShiftIntArray(arr []int, val int) []int {
 	return arr
 }
 
-func PopIntArray(arr []int) ([]int, int) {
-	pop := arr[0]
-	arr = append(arr[1:], []int{}...)
+func PopStringArray(arr []string) ([]string, string) {
+	pop := arr[len(arr) - 1]
+	arr = arr[:len(arr) - 1]
 	return arr, pop
 }
 
@@ -92,8 +98,12 @@ func Power(base, exp int) int {
 }
 
 // Map Operations
-
 func InIntBoolMap(m map[int]bool, i int) bool {
 	if _, in := m[i]; in { return true }
+	return false
+}
+
+func InStringIntMap(m map[string]int, s string) bool {
+	if _, in := m[s]; in { return true }
 	return false
 }
