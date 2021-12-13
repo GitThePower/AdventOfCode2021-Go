@@ -74,6 +74,13 @@ func DequeueIntArray(arr []int) ([]int, int) {
 	return arr, pop
 }
 
+
+func Dequeue2DStringArray(arr [][]string) ([][]string, []string) {
+	pop := arr[0]
+	arr = arr[1:]
+	return arr, pop
+}
+
 func Extend2DIntArray(arr [][]int, x, y int) [][]int {
 	prev_len := len(arr)
 	arr = append(arr, make([][]int, x)...)
@@ -81,6 +88,15 @@ func Extend2DIntArray(arr [][]int, x, y int) [][]int {
 		arr[j] = make([]int, y)
 	}
 	return arr
+}
+
+func InStringArray(arr []string, s string) bool {
+	for _,val := range arr {
+		if val == s {
+			return true
+		}
+	}
+	return false
 }
 
 func LeftShiftIntArray(arr []int, val int) []int {
@@ -112,7 +128,27 @@ func InIntBoolMap(m map[int]bool, i int) bool {
 	return false
 }
 
+func InStringBoolMap(m map[string]bool, s string) bool {
+	if _, in := m[s]; in { return true }
+	return false
+}
+
 func InStringIntMap(m map[string]int, s string) bool {
 	if _, in := m[s]; in { return true }
 	return false
+}
+
+func InStringStringArrayMap(m map[string][]string, s string) bool {
+	if _, in := m[s]; in { return true }
+	return false
+}
+
+// String operations
+func IsUpper(s string) bool {
+	for _, r := range s {
+		if r < 65 || r > 90 {
+				return false
+		}
+	}
+	return true
 }
