@@ -176,6 +176,11 @@ func InStringStringArrayMap(m map[string][]string, s string) bool {
 	return false
 }
 
+func InStringStringMap(m map[string]string, s string) bool {
+	if _, in := m[s]; in { return true }
+	return false
+}
+
 // String operations
 func IsUpper(s string) bool {
 	for _, r := range s {
