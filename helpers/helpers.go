@@ -39,6 +39,23 @@ func StringToInt(s string) int {
 	return i
 }
 
+func TwoDIntArrayToString(arr [][]int, delim string, width int) string {
+	f_s_2d := ""
+	for i := range arr {
+		s := strings.Trim(strings.Replace(fmt.Sprint(arr[i]), " ", delim, -1), "[]")
+		f_s := string(s[0])
+		for i := 1; i < len(s); i++ {
+			if (i % (width * (len(delim) + 1)) == 0) {
+				f_s = f_s + "\n" + string(s[i])
+			} else {
+				f_s = f_s + string(s[i])
+			}
+		}
+		f_s_2d = f_s_2d + f_s + "\n"
+	}
+	return f_s_2d
+}
+
 // Array Operations
 func AppendToIntArray(arr []int, val int) []int {
 	arr = append(arr, []int{val}...)
@@ -68,6 +85,15 @@ func CopyStringArray(arr []string) []string {
 	return arr_copy
 }
 
+func Copy2DIntArray(arr [][]int) [][]int {
+	arr_copy := make([][]int, len(arr))
+	copy(arr_copy, arr)
+	for i := range arr_copy {
+		copy(arr_copy[i], arr[i])
+	}
+	return arr_copy
+}
+
 func DequeueIntArray(arr []int) ([]int, int) {
 	pop := arr[0]
 	arr = arr[1:]
@@ -79,15 +105,6 @@ func Dequeue2DStringArray(arr [][]string) ([][]string, []string) {
 	pop := arr[0]
 	arr = arr[1:]
 	return arr, pop
-}
-
-func Extend2DIntArray(arr [][]int, x, y int) [][]int {
-	prev_len := len(arr)
-	arr = append(arr, make([][]int, x)...)
-	for j := prev_len; j < len(arr); j++ {
-		arr[j] = make([]int, y)
-	}
-	return arr
 }
 
 func InStringArray(arr []string, s string) bool {
@@ -108,6 +125,22 @@ func PopStringArray(arr []string) ([]string, string) {
 	pop := arr[len(arr) - 1]
 	arr = arr[:len(arr) - 1]
 	return arr, pop
+}
+
+func Resize2DIntArray(arr [][]int, x, y int) [][]int {
+	if (len(arr) < x) {
+		arr = append(arr, make([][]int, x - len(arr))...)
+	} else {
+		arr = arr[:x]
+	}
+	for j := 0; j < len(arr); j++ {
+		if (len(arr[j]) < y) {
+			arr[j] = append(arr[j], make([]int, y - len(arr[j]))...)
+		} else {
+			arr[j] = arr[j][:y]
+		}
+	}
+	return arr
 }
 
 // Math Operations

@@ -59,7 +59,7 @@ func part1(filename string) {
 	for scanner.Scan() {
 		num := scanner.Text()
 		if len(counts) < len(num) {
-			counts = helpers.Extend2DIntArray(counts, len(num)-len(counts), 2)
+			counts = helpers.Resize2DIntArray(counts, len(num), 2)
 		}
 		counts = getBitCounts(counts, num)
 	}

@@ -146,7 +146,7 @@ func parseInput(scanner bufio.Scanner) ([]int, map[int][]location, [][]int) {
 			}
 			val_inc += len(vals)
 		} else {
-			boards = helpers.Extend2DIntArray(boards, 1, 25)
+			boards = helpers.Resize2DIntArray(boards, len(boards) + 1, 25)
 			board_idx++
 			val_inc = 0
 		}
