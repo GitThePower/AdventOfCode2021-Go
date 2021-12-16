@@ -38,22 +38,7 @@ func getPolymer(filename string) (string, map[string]string) {
 	return polymer, rules
 }
 
-func part1(polymer string, rules map[string]string) {
-	fmt.Println("====== PART ONE ======")
-	steps := 10
-
-	for j := 0; j < steps; j++ {
-		copy_polymer := "" + polymer
-		for k := 1; k < len(polymer); k++ {
-			pair := string(polymer[k - 1]) + string(polymer[k])
-			if (helpers.InStringStringMap(rules, pair)) {
-				insertion := rules[pair]
-				copy_polymer = copy_polymer[:k - 1] + insertion + copy_polymer[k - 1:]
-			}
-		}
-		polymer = "" + copy_polymer
-	}
-
+func getLetterCounts(polymer string) map[string]int {
 	letter_counts := make(map[string]int)
 	for j := 0; j < len(polymer); j++ {
 		letter := string(polymer[j])
@@ -63,7 +48,22 @@ func part1(polymer string, rules map[string]string) {
 			letter_counts[letter] = 1
 		}
 	}
+	return letter_counts
+}
 
+func diffMostLeastCommonElements(polymer string, rules map[string]string, steps int) {
+	for j := 0; j < steps; j++ {
+		copy_polymer := ""
+		for k := 1; k < len(polymer); k++ {
+			pair := string(polymer[k - 1]) + string(polymer[k])
+			insertion := rules[pair]
+			copy_polymer += string(polymer[k - 1]) + insertion
+		}
+		polymer = copy_polymer + string(polymer[len(polymer) - 1])
+		// fmt.Println("Polymer Step " + helpers.IntToString(j + 1) + ": " + polymer)
+	}
+
+	letter_counts := getLetterCounts(polymer)
 	high_count, low_count, total := 0, len(polymer), 0
 	for _,count := range letter_counts {
 		total += count
@@ -71,12 +71,16 @@ func part1(polymer string, rules map[string]string) {
 		if (count < low_count) { low_count = count}
 	}
 
-	fmt.Println(letter_counts)
-	fmt.Println("Diff Between Most and Least Common Elements: " + helpers.IntToString(high_count - low_count))
+	fmt.Println("Diff Between Most and Least Common Elements after: " + helpers.IntToString(high_count - low_count))
 }
 
 func main() {
 	filename := "puzzle_input.txt"
 	polymer, rules := getPolymer(filename)
-	part1(polymer, rules)
+	fmt.Println("====== PART ONE ======")
+	steps := 10
+	diffMostLeastCommonElements(polymer[:], rules, steps)
+	fmt.Println("====== PART TWO ======")
+	steps = 40
+	diffMostLeastCommonElements(polymer[:], rules, steps)
 }
