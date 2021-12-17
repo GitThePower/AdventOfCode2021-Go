@@ -156,6 +156,14 @@ func Power(base, exp int) int {
 }
 
 // Map Operations
+func CopyStringIntMap(old_m map[string]int) map[string]int {
+	new_m := make(map[string]int)
+	for k,v := range old_m {
+		new_m[k] = v
+	}
+	return new_m
+}
+
 func InIntBoolMap(m map[int]bool, i int) bool {
 	if _, in := m[i]; in { return true }
 	return false
@@ -179,6 +187,16 @@ func InStringStringArrayMap(m map[string][]string, s string) bool {
 func InStringStringMap(m map[string]string, s string) bool {
 	if _, in := m[s]; in { return true }
 	return false
+}
+
+func SafeInsertStringIntMap(m map[string]int, s string, i int) map[string]int {
+	if (InStringIntMap(m, s)) {
+		m[s] += i
+	} else {
+		m[s] = i
+	}
+
+	return m
 }
 
 // String operations
