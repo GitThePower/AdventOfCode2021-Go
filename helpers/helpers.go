@@ -149,6 +149,16 @@ func Abs(num int) int {
 	return int(math.Abs(n))
 }
 
+func BinaryStringToInt(b string) int {
+	i := 0
+	for j := 0; j < len(b); j++ {
+		if b[j] == 49 {
+			i += Power(2, len(b) - 1 - j)
+		}
+	}
+	return i
+}
+
 func Power(base, exp int) int {
 	n := float64(exp)
 	x := float64(base)

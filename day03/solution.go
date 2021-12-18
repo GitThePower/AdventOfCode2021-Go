@@ -85,7 +85,6 @@ func getJthBitCount(counts []int, num string, j int) []int {
 }
 
 func getRating(num_arr []string, counts []int, match bool) int {
-	rating := 0
 	ratings := helpers.CopyStringArray(num_arr)
 	for j := 0; j < len(ratings[0]); j++ {
 		mode := byte(49)
@@ -104,19 +103,14 @@ func getRating(num_arr []string, counts []int, match bool) int {
 
 		if len(next_ratings) == 1 {
 			binary_string := next_ratings[0]
-			for k := 0; k < len(binary_string); k++ {
-				if binary_string[k] == 49 {
-					rating += helpers.Power(2, len(binary_string)-1-k)
-				}
-			}
-			return rating
+			return helpers.BinaryStringToInt(binary_string)
 		}
 		counts = next_counts
 		ratings = next_ratings
 	}
 
 	log.Fatal("Rating never converged")
-	return rating - 1
+	return -1
 }
 
 func printResultsP2(O2_rating, CO2_rating int) {
