@@ -169,6 +169,11 @@ func InIntBoolMap(m map[int]bool, i int) bool {
 	return false
 }
 
+func InIntIntMap(m map[int]int, i int) bool {
+	if _, in := m[i]; in { return true }
+	return false
+}
+
 func InStringBoolMap(m map[string]bool, s string) bool {
 	if _, in := m[s]; in { return true }
 	return false
