@@ -55,7 +55,13 @@ func decodePacket(bin_string string, version, typeId, iter int) packet {
 		}
 		pack.lit_val = helpers.BinaryStringToInt(lit_val_bin_string)
 	} else {
-
+		identifier := bin_string[iter + incr]
+		incr++
+		if (identifier == 48) {
+			
+		} else {
+			
+		}
 	}
 
 	return pack
@@ -80,8 +86,11 @@ func getPackets(bin_string string) []packet {
 func main() {
 	// filename := "puzzle_input.txt"
 	// bin_string := translateToBinary(filename)
-	pack := decodePacket("110100101111111000101000", 6, 4, 0)
+	iter := 0
+	pack := decodePacket("110100101111111000101000", 6, 4, iter)
+	iter += len(pack.binaryString)
 	fmt.Println(pack)
+	fmt.Println(iter)
 	// packets := getPackets(bin_string)
 	// fmt.Println(packets)
 }
